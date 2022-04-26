@@ -71,7 +71,7 @@ public class KakaoUserService {
                 kakaoTokenRequest,
                 String.class
         );
-
+        System.out.println();
         // HTTP 응답 (JSON) -> 액세스 토큰 파싱
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();

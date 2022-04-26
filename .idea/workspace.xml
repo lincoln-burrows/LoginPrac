@@ -87,12 +87,14 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="GitStage.ChangesTree.GroupingKeys" value="directory&#10;module&#10;repository" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JAVA" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
@@ -320,7 +322,7 @@
       <workItem from="1650674099339" duration="1020000" />
       <workItem from="1650725781738" duration="5728000" />
       <workItem from="1650841758408" duration="14368000" />
-      <workItem from="1650877512510" duration="1460000" />
+      <workItem from="1650877512510" duration="4322000" />
     </task>
     <task id="LOCAL-00020" summary="1주차 숙제 답안코드 (ItemSearchController, ItemSearchService)">
       <created>1630534099186</created>
