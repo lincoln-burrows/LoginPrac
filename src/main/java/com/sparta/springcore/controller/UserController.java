@@ -1,10 +1,14 @@
 package com.sparta.springcore.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sparta.springcore.dto.GoogleUserResponseDto;
+import com.sparta.springcore.dto.ResponseDto;
 import com.sparta.springcore.dto.SignupRequestDto;
+import com.sparta.springcore.service.GoogleUserService;
 import com.sparta.springcore.service.KakaoUserService;
 import com.sparta.springcore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +17,13 @@ public class UserController {
 
     private final UserService userService;
     private final KakaoUserService kakaoUserService;
+    private final GoogleUserService googleUserService;
 
     @Autowired
-    public UserController(UserService userService, KakaoUserService kakaoUserService) {
+    public UserController(UserService userService, KakaoUserService kakaoUserService, GoogleUserService googleUserService) {
         this.userService = userService;
         this.kakaoUserService  = kakaoUserService;
+        this.googleUserService = googleUserService;
     }
 
     // 회원 로그인 페이지
@@ -42,7 +48,18 @@ public class UserController {
     //카카오 로그인
     @GetMapping("/user/kakao/callback")
     public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
+        System.out.println("제일 시작점");
         kakaoUserService.kakaoLogin(code);
         return "redirect:/";
+    }
+
+    //구글 로그인
+    @GetMapping("/api/user/google/callback")
+    public ResponseDto<GoogleUserResponseDto> googleLogin(@RequestParam String code) throws JsonProcessingException {
+        return ResponseDto.<GoogleUserResponseDto>builder()
+                .status(HttpStatus.OK.toString())
+                .message("구글 소셜 로그인 요청")
+                .data(googleUserService.googleLogin(code))
+                .build();
     }
 }

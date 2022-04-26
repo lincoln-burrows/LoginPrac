@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb06d887-257e-434f-9656-5e5f82fd1461" name="Changes" comment="" />
+    <list default="true" id="bb06d887-257e-434f-9656-5e5f82fd1461" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,8 +35,8 @@
         <option value="Enum" />
         <option value="HTML File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -99,7 +103,7 @@
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JAVA" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
@@ -110,6 +114,7 @@
       <recent name="com.sparta.springcore.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="C:\Users\lthys\IdeaProjects\jwt\src\main\java\com\sparta\springcore\security" />
       <recent name="C:\Users\lthys\IdeaProjects\springcore\src\main\java\com\sparta\springcore" />
       <recent name="C:\Users\lthys\IdeaProjects\practice\springcore\src\main\resources" />
@@ -132,11 +137,11 @@
       <recent name="com.sparta.springcore.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sparta.springcore.dto" />
+      <recent name="com.sparta.springcore.security" />
       <recent name="com.sparta.springcore.service" />
       <recent name="com.sparta.springcore.model" />
-      <recent name="com.sparta.springcore.security" />
       <recent name="com.sparta.springcore.security.jwt" />
-      <recent name="com.sparta.springcore.repository" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SpringcoreApplication">
@@ -323,13 +328,7 @@
       <workItem from="1650725781738" duration="5728000" />
       <workItem from="1650841758408" duration="14368000" />
       <workItem from="1650877512510" duration="4322000" />
-    </task>
-    <task id="LOCAL-00020" summary="1주차 숙제 답안코드 (ItemSearchController, ItemSearchService)">
-      <created>1630534099186</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1630534099186</updated>
+      <workItem from="1650954100203" duration="15956000" />
     </task>
     <task id="LOCAL-00021" summary="05. '스프링 시큐리티' 프레임워크">
       <created>1630732870776</created>
@@ -667,7 +666,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632281314380</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="구글 로그인 추가 시도">
+      <created>1650954190105</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1650954190106</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -789,7 +795,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="test 06-07. Mockito mock 을 사용한 단위 테스트" />
     <MESSAGE value="06. Mock object 직접 구현을 통한 단위 테스트" />
     <MESSAGE value="07. Mockito mock 을 사용한 단위 테스트" />
     <MESSAGE value="test 10" />
@@ -814,7 +819,8 @@
     <MESSAGE value="12. 스프링 예외 처리 방법" />
     <MESSAGE value="13. 스프링 Global 예외 처리 방법" />
     <MESSAGE value="5주차 숙제풀이" />
-    <option name="LAST_COMMIT_MESSAGE" value="5주차 숙제풀이" />
+    <MESSAGE value="구글 로그인 추가 시도" />
+    <option name="LAST_COMMIT_MESSAGE" value="구글 로그인 추가 시도" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

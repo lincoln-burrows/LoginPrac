@@ -38,15 +38,16 @@ public class KakaoUserService {
     public void kakaoLogin(String code) throws JsonProcessingException {
         // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(code);
-
+        System.out.println("1.\"인가 코드\"로 \"액세스 토큰\" 요청");
         // 2. 토큰으로 카카오 API 호출
         KakaoUserInfoDto kakaoUserInfo = getKakaoUserInfo(accessToken);
-
+        System.out.println("2. 토큰으로 카카오 API 호출");
         // 3. 필요시에 회원가입
         User kakaoUser = registerKakaoUserIfNeeded(kakaoUserInfo);
-
+        System.out.println("3. 필요시에 회원가입");
         // 4. 강제 로그인 처리
         forceLogin(kakaoUser);
+        System.out.println("4. 강제 로그인 처리");
     }
 
     private String getAccessToken(String code) throws JsonProcessingException {

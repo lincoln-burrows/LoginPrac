@@ -1,13 +1,19 @@
 package com.sparta.springcore.security;
 
 import com.sparta.springcore.model.User;
+import com.sparta.springcore.security.jwt.JwtTokenUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
+@Builder
+@AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
@@ -19,6 +25,10 @@ public class UserDetailsImpl implements UserDetails {
     public User getUser() {
         return user;
     }
+
+    private String username;
+    private String password;
+
 
     @Override
     public String getPassword() {
@@ -55,5 +65,12 @@ public class UserDetailsImpl implements UserDetails {
         System.out.println("UserDetailsImpl authorities 에서 나온 결과");
 
         return null;
+    }
+
+    public static UserDetailsImpl initUserDetails(HashMap<String, String> userInfo) {
+        return UserDetailsImpl.builder()
+                .username(userInfo.get(JwtTokenUtils.CLAIM_USER_NAME))
+                .password(userInfo.get(JwtTokenUtils.CLAIM_USER_PASSWORD))
+                .build();
     }
 }
