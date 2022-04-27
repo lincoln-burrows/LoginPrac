@@ -4,6 +4,7 @@ package com.sparta.springcore.service;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
@@ -16,18 +17,25 @@ import com.sparta.springcore.security.GoogleOAuthResponse;
 import com.sparta.springcore.security.UserDetailsImpl;
 import com.sparta.springcore.security.jwt.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import sun.net.www.http.HttpClient;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -38,6 +46,12 @@ public class GoogleUserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
+    @Autowired
+    public GoogleUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
@@ -52,16 +66,18 @@ public class GoogleUserService {
 
         // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(restTemplate, code);
-
+        System.out.println("1.\"인가 코드\"로 \"액세스 토큰\" 요청");
         // 2. "액세스 토큰"으로 "카카오 사용자 정보" 가져오기
         GoogleUserInfoDto snsUserInfoDto = getGoogleUserInfo(restTemplate, accessToken);
-
+        System.out.println("2. 액세스 토큰\"으로 \" 사용자 정보\" 가져오기");
         // 3. "구글 사용자 정보"로 필요시 회원가입  및 이미 같은 이메일이 있으면 기존회원으로 로그인
         User googleUser = registerGoogleOrUpdateGoogle(snsUserInfoDto);
+        System.out.println("3. \"구글 사용자 정보\"로 필요시 회원가입 및 이미 같은 이메일이 있으면 기존회원으로 로그인");
 
         // 4. 강제 로그인 처리
         final String AUTH_HEADER = "Authorization";
         final String TOKEN_TYPE = "BEARER";
+        System.out.println("4. 강제 로그인 처리");
 
         String jwt_token = forceLogin(googleUser); // 로그인처리 후 토큰 받아오기
         HttpHeaders headers = new HttpHeaders();
@@ -88,7 +104,9 @@ public class GoogleUserService {
 //                .redirectUri("https://memegle.xyz/redirect/google")
 //                .redirectUri("http://localhost:3000/redirect/google")
                 .redirectUri("http://localhost:8080/api/user/google/callback")
-                .grantType("authorization_code").build();
+                .grantType("authorization_code")
+                .accessType("offline")
+                .scope("https://www.googleapis.com/auth/userinfo.profile").build();
 
 
         //JSON 파싱을 위한 기본값 세팅
@@ -99,21 +117,54 @@ public class GoogleUserService {
 
         //AccessToken 발급 요청
         ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", googleOAuthRequestParam, String.class);
-
+        System.out.println(resultEntity+"resultEntity");
         //Token Request
         GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
         });
-
-        String jwtToken = result.getId_token();
-        System.out.println(jwtToken);
-        return jwtToken;
+        System.out.println(result+"result");
+        String jwtToken1 = result.getAccess_token();
+        System.out.println(jwtToken1);
+        return jwtToken1;
     }
 
+//
+//    public GoogleUserInfoDto getGoogleUserInfo(String accessToken) throws JsonProcessingException {
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        // HTTP Header 생성
+//        headers.add("Authorization", "Bearer " + accessToken);
+//
+//        // HTTP 요청 보내기
+//        HttpEntity<MultiValueMap<String, String>> googleUserInfoRequest = new HttpEntity<>(headers);
+//        RestTemplate rt = new RestTemplate();
+//        rt.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+//        ResponseEntity<String> response = rt.exchange(
+//                "https://www.googleapis.com/oauth2/v2/userinfo",
+//                HttpMethod.GET,
+//                googleUserInfoRequest,
+//                String.class
+//        );
+//
+//        String responseBody = response.getBody();
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        JsonNode jsonNode = objectMapper.readTree(responseBody);
+//        String googleId = "GOOGLE_" + jsonNode.get("id").asText();
+//        String email = jsonNode.get("email").asText();
+////        String nickname = jsonNode.get("nickname").asText();
+//        System.out.println(googleId+"구글아이디");
+//        System.out.println(email+"이메일");
+//        return GoogleUserInfoDto.builder()
+//                .username(email)
+//                .nickname(googleId)
+//                .build();
+//    }
 
     private GoogleUserInfoDto getGoogleUserInfo(RestTemplate restTemplate, String jwtToken) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
-                .queryParam("id_token", jwtToken).encode().toUriString();
+//        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/userinfo")
+        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://www.googleapis.com/oauth2/v3/userinfo")
+                .queryParam("access_token", jwtToken).encode().toUriString();
 
         String resultJson = restTemplate.getForObject(requestUrl, String.class);
 
@@ -125,8 +176,47 @@ public class GoogleUserService {
                 .nickname(userInfo.get("name"))
                 .build();
 
+        String nickname = userInfo.get("name");
+        String email = userInfo.get("email");
+        System.out.println("구글 사용자 정보:  " + nickname + ", " + email);
         return googleUserInfoDto;
     }
+
+//    public static JsonNode getGoogleUserInfo(String autorize_code) {
+//
+//        final String RequestUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
+//
+//        final HttpClient client = HttpClientBuilder.create().build();
+//        final HttpGet get = new HttpGet(RequestUrl);
+//
+//        JsonNode returnNode = null;
+//
+//        // add header
+//        get.addHeader("Authorization", "Bearer " + autorize_code);
+//
+//        try {
+//            final HttpResponse response = client.execute(get);
+//            final int responseCode = response.getStatusLine().getStatusCode();
+//
+//            ObjectMapper mapper = new ObjectMapper();
+//            returnNode = mapper.readTree(response.getEntity().getContent());
+//
+//            System.out.println("\nSending 'GET' request to URL : " + RequestUrl);
+//            System.out.println("Response Code : " + responseCode);
+//
+//
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (ClientProtocolException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            // clear resources
+//        }
+//        return returnNode;
+//
+//    }
 
 
     private User registerGoogleOrUpdateGoogle(GoogleUserInfoDto googleUserInfoDto) {

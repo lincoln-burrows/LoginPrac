@@ -44,7 +44,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
         String tokenPayload = request.getHeader("Authorization");
         if (tokenPayload == null) {
             response.sendRedirect("/user/loginView");
-            System.out.println("attemptAuthentication에서 나온 결과");
+            System.out.println("JwtAuthFilter attemptAuthentication에서 나온 결과");
             return null;
         }
 

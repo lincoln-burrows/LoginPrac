@@ -70,7 +70,7 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl initUserDetails(HashMap<String, String> userInfo) {
         return UserDetailsImpl.builder()
                 .username(userInfo.get(JwtTokenUtils.CLAIM_USER_NAME))
-                .password(userInfo.get(JwtTokenUtils.CLAIM_USER_PASSWORD))
+//                .password(userInfo.get(JwtTokenUtils.CLAIM_USER_PASSWORD))
                 .build();
     }
 }

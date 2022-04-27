@@ -26,11 +26,11 @@ public class UserController {
         this.googleUserService = googleUserService;
     }
 
-    // 회원 로그인 페이지
-    @GetMapping("/user/loginView")
-    public String login() {
-        return "login";
-    }
+//    // 회원 로그인 페이지
+//    @GetMapping("/user/loginView")
+//    public String login() {
+//        return "login";
+//    }
 
     // 회원 가입 페이지
     @GetMapping("/user/signup")
@@ -55,11 +55,24 @@ public class UserController {
 
     //구글 로그인
     @GetMapping("/api/user/google/callback")
-    public ResponseDto<GoogleUserResponseDto> googleLogin(@RequestParam String code) throws JsonProcessingException {
-        return ResponseDto.<GoogleUserResponseDto>builder()
+//    @GetMapping("/login/oauth2/code/google")
+    public String googleLogin(@RequestParam String code) throws JsonProcessingException {
+//    public ResponseDto<GoogleUserResponseDto> googleLogin(@RequestParam String code) throws JsonProcessingException {
+        System.out.println("구글로그인 시작");
+         ResponseDto.<GoogleUserResponseDto>builder()
                 .status(HttpStatus.OK.toString())
                 .message("구글 소셜 로그인 요청")
                 .data(googleUserService.googleLogin(code))
                 .build();
+         return "redirect:/";
     }
+
+    //테스트용
+
+    // 회원 로그인 페이지
+    @GetMapping("/user/login")
+    public String login2() {
+        return "login";
+    }
+
 }

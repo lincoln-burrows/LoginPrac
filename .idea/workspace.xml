@@ -5,9 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb06d887-257e-434f-9656-5e5f82fd1461" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/HomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/basic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/delete.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/done.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/edit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/icon-save.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/icon-search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/og_selectshop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/write.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/timeline.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/filter/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/filter/JwtAuthFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +137,8 @@
       <recent name="C:\Users\lthys\IdeaProjects\practice\springcore\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static" />
       <recent name="C:\Users\lthys\IdeaProjects\springcore\src\main\resources\templates" />
       <recent name="C:\Users\lthys\IdeaProjects\springcore\src\main\resources\static\css" />
     </key>
@@ -137,11 +156,11 @@
       <recent name="com.sparta.springcore.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sparta.springcore.controller" />
       <recent name="com.sparta.springcore.dto" />
       <recent name="com.sparta.springcore.security" />
       <recent name="com.sparta.springcore.service" />
       <recent name="com.sparta.springcore.model" />
-      <recent name="com.sparta.springcore.security.jwt" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SpringcoreApplication">
@@ -328,14 +347,9 @@
       <workItem from="1650725781738" duration="5728000" />
       <workItem from="1650841758408" duration="14368000" />
       <workItem from="1650877512510" duration="4322000" />
-      <workItem from="1650954100203" duration="15956000" />
-    </task>
-    <task id="LOCAL-00021" summary="05. '스프링 시큐리티' 프레임워크">
-      <created>1630732870776</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1630732870776</updated>
+      <workItem from="1650954100203" duration="16037000" />
+      <workItem from="1650992708897" duration="4089000" />
+      <workItem from="1651027005768" duration="17824000" />
     </task>
     <task id="LOCAL-00022" summary="06. 회원 가입 UI 반영">
       <created>1630739091708</created>
@@ -673,7 +687,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650954190106</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="프론트와 연결 시도">
+      <created>1650992619642</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1650992619643</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -795,7 +816,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="06. Mock object 직접 구현을 통한 단위 테스트" />
     <MESSAGE value="07. Mockito mock 을 사용한 단위 테스트" />
     <MESSAGE value="test 10" />
     <MESSAGE value="10. 스프링 부트를 이용한 통합 테스트 - 구현" />
@@ -820,7 +840,8 @@
     <MESSAGE value="13. 스프링 Global 예외 처리 방법" />
     <MESSAGE value="5주차 숙제풀이" />
     <MESSAGE value="구글 로그인 추가 시도" />
-    <option name="LAST_COMMIT_MESSAGE" value="구글 로그인 추가 시도" />
+    <MESSAGE value="프론트와 연결 시도" />
+    <option name="LAST_COMMIT_MESSAGE" value="프론트와 연결 시도" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

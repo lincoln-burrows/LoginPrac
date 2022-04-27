@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
+                .antMatchers("/api/user").permitAll()
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -131,6 +132,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
         skipPathList.add("GET,/user/**");
+        skipPathList.add("GET,/api/user/**");
+        skipPathList.add("GET,/login/oauth2/**");
+
+        skipPathList.add("GET,/user/login");
         skipPathList.add("POST,/user/signup");
 //        skipPathList.add("POST,/user/login");
 
