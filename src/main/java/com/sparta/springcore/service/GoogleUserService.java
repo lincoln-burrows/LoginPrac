@@ -72,6 +72,7 @@ public class GoogleUserService {
         System.out.println("2. 액세스 토큰\"으로 \" 사용자 정보\" 가져오기");
         // 3. "구글 사용자 정보"로 필요시 회원가입  및 이미 같은 이메일이 있으면 기존회원으로 로그인
         User googleUser = registerGoogleOrUpdateGoogle(snsUserInfoDto);
+        System.out.println(googleUser.getUsername());
         System.out.println("3. \"구글 사용자 정보\"로 필요시 회원가입 및 이미 같은 이메일이 있으면 기존회원으로 로그인");
 
         // 4. 강제 로그인 처리
@@ -106,7 +107,7 @@ public class GoogleUserService {
                 .redirectUri("http://localhost:8080/api/user/google/callback")
                 .grantType("authorization_code")
                 .accessType("offline")
-                .scope("https://www.googleapis.com/auth/userinfo.profile").build();
+                .scope("openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email").build();
 
 
         //JSON 파싱을 위한 기본값 세팅
@@ -122,49 +123,17 @@ public class GoogleUserService {
         GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
         });
         System.out.println(result+"result");
-        String jwtToken1 = result.getAccess_token();
-        System.out.println(jwtToken1);
-        return jwtToken1;
+        String jwtToken = result.getId_token();
+        System.out.println(jwtToken);
+        return jwtToken;
     }
 
-//
-//    public GoogleUserInfoDto getGoogleUserInfo(String accessToken) throws JsonProcessingException {
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        // HTTP Header 생성
-//        headers.add("Authorization", "Bearer " + accessToken);
-//
-//        // HTTP 요청 보내기
-//        HttpEntity<MultiValueMap<String, String>> googleUserInfoRequest = new HttpEntity<>(headers);
-//        RestTemplate rt = new RestTemplate();
-//        rt.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-//        ResponseEntity<String> response = rt.exchange(
-//                "https://www.googleapis.com/oauth2/v2/userinfo",
-//                HttpMethod.GET,
-//                googleUserInfoRequest,
-//                String.class
-//        );
-//
-//        String responseBody = response.getBody();
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        JsonNode jsonNode = objectMapper.readTree(responseBody);
-//        String googleId = "GOOGLE_" + jsonNode.get("id").asText();
-//        String email = jsonNode.get("email").asText();
-////        String nickname = jsonNode.get("nickname").asText();
-//        System.out.println(googleId+"구글아이디");
-//        System.out.println(email+"이메일");
-//        return GoogleUserInfoDto.builder()
-//                .username(email)
-//                .nickname(googleId)
-//                .build();
-//    }
 
     private GoogleUserInfoDto getGoogleUserInfo(RestTemplate restTemplate, String jwtToken) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-//        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/userinfo")
-        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://www.googleapis.com/oauth2/v3/userinfo")
-                .queryParam("access_token", jwtToken).encode().toUriString();
+        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
+//        String requestUrl = UriComponentsBuilder.fromHttpUrl("https://www.googleapis.com/oauth2/v3/userinfo")
+                .queryParam("id_token", jwtToken).encode().toUriString();
 
         String resultJson = restTemplate.getForObject(requestUrl, String.class);
 
@@ -182,42 +151,6 @@ public class GoogleUserService {
         return googleUserInfoDto;
     }
 
-//    public static JsonNode getGoogleUserInfo(String autorize_code) {
-//
-//        final String RequestUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
-//
-//        final HttpClient client = HttpClientBuilder.create().build();
-//        final HttpGet get = new HttpGet(RequestUrl);
-//
-//        JsonNode returnNode = null;
-//
-//        // add header
-//        get.addHeader("Authorization", "Bearer " + autorize_code);
-//
-//        try {
-//            final HttpResponse response = client.execute(get);
-//            final int responseCode = response.getStatusLine().getStatusCode();
-//
-//            ObjectMapper mapper = new ObjectMapper();
-//            returnNode = mapper.readTree(response.getEntity().getContent());
-//
-//            System.out.println("\nSending 'GET' request to URL : " + RequestUrl);
-//            System.out.println("Response Code : " + responseCode);
-//
-//
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (ClientProtocolException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            // clear resources
-//        }
-//        return returnNode;
-//
-//    }
-
 
     private User registerGoogleOrUpdateGoogle(GoogleUserInfoDto googleUserInfoDto) {
 
@@ -227,11 +160,9 @@ public class GoogleUserService {
         if (sameUser == null) {
             return registerGoogleUserIfNeeded(googleUserInfoDto);
         }
-//        else {
-//            return updateGoogleUser(sameUser, googleUserInfoDto);
-//        }
-
-        return sameUser;
+        else {
+            return updateGoogleUser(sameUser, googleUserInfoDto);
+        }
     }
 
     private User registerGoogleUserIfNeeded(GoogleUserInfoDto googleUserInfoDto) {
@@ -267,39 +198,40 @@ public class GoogleUserService {
             String password = UUID.randomUUID().toString();
             String encodedPassword = passwordEncoder.encode(password);
 
-            googleUser = new User(nickname, encodedPassword, username);
+//            googleUser = new User("nickname", encodedPassword, username);
 
-//            googleUser = User.builder()
-//                    .username(username)
-//                    .password(encodedPassword)
-//                    .nickname(nickname)
-//                    .build();
+            googleUser = User.builder()
+                    .username(nickname)
+                    .password(encodedPassword)
+                    .email(username)
+                    .build();
             userRepository.save(googleUser);
         }
 
         return googleUser;
     }
 
-//    private User updateGoogleUser(User sameUser, GoogleUserInfoDto googleUserInfoDto) {
-//        if (sameUser.getUsername() == null) {
-//            System.out.println("중복");
-//            sameUser.setUsername(googleUserInfoDto.getUsername());
-//            sameUser.setNickname(googleUserInfoDto.getNickname());
-//            userRepository.save(sameUser);
-//        }
-//        return sameUser;
-//    }
+    private User updateGoogleUser(User sameUser, GoogleUserInfoDto googleUserInfoDto) {
+        if (sameUser.getUsername() == null) {
+            System.out.println("중복");
+            sameUser.setUsername(googleUserInfoDto.getUsername());
+            sameUser.setNickname(googleUserInfoDto.getNickname());
+            userRepository.save(sameUser);
+        }
+        return sameUser;
+    }
 
     private String forceLogin(User googleUser) {
-//        UserDetails userDetails = new UserDetailsImpl(googleUser);
-//        UserDetailsImpl userDetails1 = userDetails;
-
-        UserDetailsImpl userDetails = UserDetailsImpl.builder()
-                .username(googleUser.getUsername())
-                .password(googleUser.getPassword())
-                .build();
+        UserDetailsImpl userDetails = new UserDetailsImpl(googleUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("강제로그인 초입부분");
+//        UserDetailsImpl userDetails = UserDetailsImpl.builder()
+//                .username(googleUser.getUsername())
+//                .password(googleUser.getPassword())
+//                .build();
+        System.out.println(userDetails.getUsername()+"유저디테일즈 출력여부");
+
 
         return JwtTokenUtils.generateJwtToken(userDetails);
     }

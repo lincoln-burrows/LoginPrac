@@ -22,8 +22,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find " + username));
         System.out.println("UserDetailsServiceImpl 에서 나온 결과");
-
+        System.out.println("DetailsServiceImpl loadbyUsername"+user.getUsername());
 
         return new UserDetailsImpl(user);
+//        return UserDetailsImpl
+//                .builder()
+//                .username(user.getUsername())
+//                .password(user.getPassword())
+//                .build();
     }
 }

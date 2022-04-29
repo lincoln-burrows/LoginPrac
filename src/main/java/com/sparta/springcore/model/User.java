@@ -3,6 +3,8 @@ package com.sparta.springcore.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -36,6 +38,12 @@ public class User {
     @Column(unique = true)
     private Long googleId;
 
+    @Setter
+    private boolean emailVerified;
+
+    private String emailCheckToken;
+
+    private LocalDateTime emailCheckTokenGeneratedAt;
 
     @Builder
     public User(String username, String password, String email) {
@@ -54,4 +62,24 @@ public class User {
             this.kakaoId = kakaoId;
 
     }
+
+
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+    }
+
+    public void changeTempPassword(String tempPassword) {
+        this.password = tempPassword;
+        System.out.println("유저 비밀번호 임시비밀번호로 바꾸기");
+    }
+
+    public boolean isValidToken(String token) {
+        return this.emailCheckToken.equals(token);
+    }
+
+    public boolean canSendConfirmEmail() {
+        return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusHours(1));
+    }
+
 }

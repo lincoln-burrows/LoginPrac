@@ -1,16 +1,18 @@
 package com.sparta.springcore.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sparta.springcore.dto.GoogleUserResponseDto;
-import com.sparta.springcore.dto.ResponseDto;
-import com.sparta.springcore.dto.SignupRequestDto;
+import com.sparta.springcore.dto.*;
 import com.sparta.springcore.service.GoogleUserService;
 import com.sparta.springcore.service.KakaoUserService;
 import com.sparta.springcore.service.UserService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.activity.InvalidActivityException;
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
@@ -35,7 +37,7 @@ public class UserController {
     // 회원 가입 페이지
     @GetMapping("/user/signup")
     public String signup() {
-        return "signup";
+        return "signup.html";
     }
 
     // 회원 가입 요청 처리
@@ -73,6 +75,13 @@ public class UserController {
     @GetMapping("/user/login")
     public String login2() {
         return "login";
+    }
+
+    //임시 비밀번호 보내기
+    @PostMapping("/auth/send-temp-password")
+    public ResponseEntity<CMResponseDto> sendTempPassword(@RequestBody @Valid EmailRequestDto emailRequestDto) throws InvalidActivityException, NotFoundException {
+        System.out.println("이메일 보내기 시작");
+        return userService.sendTempPassword(emailRequestDto);
     }
 
 }

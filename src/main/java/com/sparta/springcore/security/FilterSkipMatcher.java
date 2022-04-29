@@ -43,6 +43,9 @@ public class FilterSkipMatcher implements RequestMatcher {
     @Override
     public boolean matches(HttpServletRequest req) {
         System.out.println("FilterSkipMatchers matches에서 나온 결과");
+        System.out.println(req);
+        System.out.printf(String.valueOf(orRequestMatcher)+"1");
+        System.out.printf(String.valueOf(processingMatcher)+"2");
 
         return !orRequestMatcher.matches(req) && processingMatcher.matches(req);
     }

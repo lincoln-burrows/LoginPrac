@@ -52,6 +52,12 @@ dependencies {
     // OAuth2 Google
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    //임시 비밀번호 발급
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //validation
+    implementation 'jakarta.validation:jakarta.validation-api:2.0.2'
+
 }
 
 test {

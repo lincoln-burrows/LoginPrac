@@ -22,7 +22,7 @@ public final class JwtTokenUtils {
     public static final String CLAIM_USER_NAME = "USER_NAME";
 //    public static final String CLAIM_USER_PASSWORD = "USER_PASSWORD";
     public static final String JWT_SECRET = "jwt_secret_!@#$%";
-    public static final String CLAIM_NICKNAME = "NICKNAME";
+//    public static final String CLAIM_NICKNAME = "NICKNAME";
     public static final String CLAIM_EMAIL = "EMAIL";
 //    public static final String CLAIM_USER_ID = "USER_ID";
 
@@ -33,7 +33,7 @@ public final class JwtTokenUtils {
                     .withIssuer("sparta")
                     .withClaim(CLAIM_USER_NAME, userDetails.getUsername())
 //                    .withClaim(CLAIM_USER_PASSWORD, userDetails.getPassword())
-                    .withClaim(CLAIM_NICKNAME, userDetails.getUser().getNickname())
+//                    .withClaim(CLAIM_NICKNAME, userDetails.getUser().getNickname())
                     .withClaim(CLAIM_EMAIL, userDetails.getUser().getEmail())
 //                    .withClaim(CLAIM_USER_ID, userDetails.getU)
                      // 토큰 만료 일시 = 현재 시간 + 토큰 유효기간)
@@ -43,6 +43,7 @@ public final class JwtTokenUtils {
             System.out.println(e.getMessage());
         }
         System.out.println("JWT tokenUtils jwttokenutils 입니다");
+        System.out.println(token);
         return token;
     }
 

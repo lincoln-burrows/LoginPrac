@@ -7,6 +7,7 @@ import com.sparta.springcore.security.provider.FormLoginAuthProvider;
 import com.sparta.springcore.security.provider.JWTAuthProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@EnableAsync
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -136,8 +138,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/login/oauth2/**");
 
         skipPathList.add("GET,/user/login");
+        skipPathList.add("GET,/user/signup");
         skipPathList.add("POST,/user/signup");
 //        skipPathList.add("POST,/user/login");
+        skipPathList.add("POST,/auth/send-temp-password");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");

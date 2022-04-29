@@ -5,26 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb06d887-257e-434f-9656-5e5f82fd1461" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/HomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/basic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/delete.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/done.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/icon-save.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/icon-search.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/og_selectshop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/send.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/write.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/signup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/timeline.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/Exception/RestApiException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/Exception/RestApiExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/dto/CMResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/dto/EmailRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/dto/KakaoUserResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/mail/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/model/EmailMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/ConsoleEmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/HtmlEmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/SpringcoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/SpringcoreApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/dto/GoogleUserResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/dto/GoogleUserResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/FilterSkipMatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/FilterSkipMatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/UserDetailsImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/filter/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/filter/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/jwt/JwtTokenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/jwt/JwtTokenUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/GoogleUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/GoogleUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/KakaoUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sparta/springcore/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +62,7 @@
         <option value="HTML File" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -120,21 +130,23 @@
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JAVA" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/sparta/springcore" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.sparta.springcore.repository" />
       <recent name="com.sparta.springcore.service" />
+      <recent name="com.sparta.springcore.controller" />
+      <recent name="com.sparta.springcore.repository" />
       <recent name="com.sparta.springcore.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/sparta/springcore" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources/static" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="C:\Users\lthys\IdeaProjects\jwt\src\main\java\com\sparta\springcore\security" />
-      <recent name="C:\Users\lthys\IdeaProjects\springcore\src\main\java\com\sparta\springcore" />
-      <recent name="C:\Users\lthys\IdeaProjects\practice\springcore\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/templates" />
@@ -156,11 +168,11 @@
       <recent name="com.sparta.springcore.model" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.sparta.springcore.controller" />
-      <recent name="com.sparta.springcore.dto" />
-      <recent name="com.sparta.springcore.security" />
       <recent name="com.sparta.springcore.service" />
       <recent name="com.sparta.springcore.model" />
+      <recent name="com.sparta.springcore.dto" />
+      <recent name="com.sparta.springcore.controller" />
+      <recent name="com.sparta.springcore.security" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SpringcoreApplication">
@@ -349,14 +361,13 @@
       <workItem from="1650877512510" duration="4322000" />
       <workItem from="1650954100203" duration="16037000" />
       <workItem from="1650992708897" duration="4089000" />
-      <workItem from="1651027005768" duration="17824000" />
-    </task>
-    <task id="LOCAL-00022" summary="06. 회원 가입 UI 반영">
-      <created>1630739091708</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1630739091708</updated>
+      <workItem from="1651027005768" duration="18111000" />
+      <workItem from="1651056472697" duration="6277000" />
+      <workItem from="1651065092002" duration="5657000" />
+      <workItem from="1651113376436" duration="5253000" />
+      <workItem from="1651127482346" duration="12885000" />
+      <workItem from="1651211228462" duration="5424000" />
+      <workItem from="1651219055180" duration="9130000" />
     </task>
     <task id="LOCAL-00023" summary="Test) 07. 회원 가입 기능 구현">
       <created>1630749360615</created>
@@ -694,7 +705,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650992619643</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="구글로그인 정보 받아오기 성공">
+      <created>1651056419950</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1651056419951</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -816,7 +834,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="07. Mockito mock 을 사용한 단위 테스트" />
     <MESSAGE value="test 10" />
     <MESSAGE value="10. 스프링 부트를 이용한 통합 테스트 - 구현" />
     <MESSAGE value="11. 스프링 MVC 테스트" />
@@ -841,7 +858,28 @@
     <MESSAGE value="5주차 숙제풀이" />
     <MESSAGE value="구글 로그인 추가 시도" />
     <MESSAGE value="프론트와 연결 시도" />
-    <option name="LAST_COMMIT_MESSAGE" value="프론트와 연결 시도" />
+    <MESSAGE value="구글로그인 정보 받아오기 성공" />
+    <option name="LAST_COMMIT_MESSAGE" value="구글로그인 정보 받아오기 성공" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/FilterSkipMatcher.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/sparta/springcore/security/FilterSkipMatcher.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

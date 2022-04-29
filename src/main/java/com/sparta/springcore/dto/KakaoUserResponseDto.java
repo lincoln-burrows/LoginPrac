@@ -8,9 +8,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoogleUserResponseDto {
+public class KakaoUserResponseDto {
     private String token;
-    private String username;
+    private Long userId;
     private String nickname;
     private String email;
 }

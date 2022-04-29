@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.springcore.dto.KakaoUserInfoDto;
+import com.sparta.springcore.dto.KakaoUserResponseDto;
 import com.sparta.springcore.model.User;
 import com.sparta.springcore.repository.UserRepository;
 import com.sparta.springcore.security.UserDetailsImpl;
@@ -36,7 +37,7 @@ public class KakaoUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void kakaoLogin(String code) throws JsonProcessingException {
+    public KakaoUserResponseDto kakaoLogin(String code) throws JsonProcessingException {
         // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(code);
         System.out.println("1.\"인가 코드\"로 \"액세스 토큰\" 요청");
@@ -44,11 +45,29 @@ public class KakaoUserService {
         KakaoUserInfoDto kakaoUserInfo = getKakaoUserInfo(accessToken);
         System.out.println("2. 토큰으로 카카오 API 호출");
         // 3. 필요시에 회원가입
-        User kakaoUser = registerKakaoUserIfNeeded(kakaoUserInfo);
+//        User kakaoUser = registerKakaoUserIfNeeded(kakaoUserInfo);
+        User kakaoUser = registerKakaoOrUpdateKakao(kakaoUserInfo);
         System.out.println("3. 필요시에 회원가입");
         // 4. 강제 로그인 처리
-        forceLogin(kakaoUser);
         System.out.println("4. 강제 로그인 처리");
+        final String AUTH_HEADER = "Authorization";
+        final String TOKEN_TYPE = "BEARER";
+
+        String jwt_token = forceLogin(kakaoUser); // 로그인처리 후 토큰 받아오기
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(AUTH_HEADER, TOKEN_TYPE + " " + jwt_token);
+        KakaoUserResponseDto kakaoUserResponseDto = KakaoUserResponseDto.builder()
+                .token(TOKEN_TYPE + " " + jwt_token)
+                .userId(kakaoUser.getId())
+                .nickname(kakaoUser.getNickname())
+                .email(kakaoUser.getEmail())
+                .build();
+        System.out.println("kakao user's token : " + TOKEN_TYPE + " " + jwt_token);
+        System.out.println("LOGIN SUCCESS!");
+        System.out.println(kakaoUserResponseDto.getNickname());
+        return kakaoUserResponseDto;
+
+
     }
 
     private String getAccessToken(String code) throws JsonProcessingException {
@@ -112,6 +131,19 @@ public class KakaoUserService {
         return new KakaoUserInfoDto(id, nickname, email);
     }
 
+    private User registerKakaoOrUpdateKakao(
+            KakaoUserInfoDto kakaoUserInfoDto
+    ) {
+        User sameUser = userRepository.findByKakaoId(kakaoUserInfoDto.getId())
+                .orElse(null);
+
+        if (sameUser == null) {
+            return registerKakaoUserIfNeeded(kakaoUserInfoDto);
+        } else {
+            return updateKakaoUser(sameUser, kakaoUserInfoDto);
+        }
+    }
+
     private User registerKakaoUserIfNeeded(KakaoUserInfoDto kakaoUserInfo) {
         // DB 에 중복된 Kakao Id 가 있는지 확인
         Long kakaoId = kakaoUserInfo.getId();
@@ -135,15 +167,24 @@ public class KakaoUserService {
         return kakaoUser;
     }
 
+    private User updateKakaoUser(
+            User sameUser,
+            KakaoUserInfoDto snsUserInfoDto
+    ) {
+        if (sameUser.getKakaoId() == null) {
+            System.out.println("중복");
+            sameUser.setKakaoId(snsUserInfoDto.getId());
+            sameUser.setNickname(snsUserInfoDto.getNickname());
+            userRepository.save(sameUser);
+        }
+        return sameUser;
+    }
+
     private String forceLogin(User kakaoUser) {
-        UserDetails userDetails = new UserDetailsImpl(kakaoUser);
+        UserDetailsImpl userDetails = new UserDetailsImpl(kakaoUser);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails2 = UserDetailsImpl.builder()
-                .username(kakaoUser.getUsername())
-                .password(kakaoUser.getPassword())
-                .build();
-        return JwtTokenUtils.generateJwtToken(userDetails2);
+        return JwtTokenUtils.generateJwtToken(userDetails);
     }
 }

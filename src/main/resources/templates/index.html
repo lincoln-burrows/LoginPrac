@@ -63,6 +63,59 @@
                         </div>`;
         }
 
+        function onKakaoLogin() {
+            $.ajax({
+                type: "GET",
+                url: `/user/kakao/callback`,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                }),
+                success: function (response, textStatus, request) {
+                    const jwtToken = request.getResponseHeader("Authorization");
+
+                    if (jwtToken) {
+                        $.cookie("token", jwtToken);
+                        $.ajaxSetup({
+                            headers:{
+                                'Authorization': $.cookie('token', jwtToken, { path: '/' })
+                            }
+                        });
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/user/loginView?error';
+                    }
+                }
+            })
+        }
+
+        function onGoogleLogin() {
+            $.ajax({
+                type: "GET",
+                url: `/api/user/google/callback`,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                }),
+                success: function (response, textStatus, request) {
+                    const jwtToken = request.getResponseHeader("Authorization");
+
+                    if (jwtToken) {
+                        $.cookie("token", jwtToken);
+                        $.ajaxSetup({
+                            headers:{
+                                'Authorization': $.cookie('token', jwtToken, { path: '/' })
+                            }
+                        });
+                        window.location.href = '/';
+                    } else {
+                        window.location.href = '/user/loginView?error';
+                    }
+                }
+            })
+        }
     </script>
     <style>
         @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
@@ -316,12 +369,12 @@
         </h2>
     </div>
     <button id="login-kakao-btn"
-            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=61987d99dfe1738afbdd8c691b70409a&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'">
+            onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=61987d99dfe1738afbdd8c691b70409a&redirect_uri=http://localhost:8080/user/kakao/callback&response_type=code'; onKakaoLogin()">
         카카오로 로그인하기
     </button>
 
     <button id="login-Google-btn"
-            onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&approval_prompt=force&redirect_uri=http://localhost:8080/api/user/google/callback&client_id=570518782974-jdus84o00bp52n37raodfb01gv79usad.apps.googleusercontent.com&response_type=code&access_type=offline'">
+            onclick="location.href='https://accounts.google.com/o/oauth2/v2/auth?scope=openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&redirect_uri=http://localhost:8080/api/user/google/callback&client_id=570518782974-jdus84o00bp52n37raodfb01gv79usad.apps.googleusercontent.com&response_type=code&access_type=offline'; onGoogleLogin()">
 <!--        https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code&client_id=570518782974-jdus84o00bp52n37raodfb01gv79usad.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth/google/callback-->
         구글로 로그인하기
     </button>

@@ -25,6 +25,12 @@ public class UserDetailsImpl implements UserDetails {
     public User getUser() {
         return user;
     }
+    public static UserDetailsImpl initUserDetails(HashMap<String, String> userInfo) {
+        return UserDetailsImpl.builder()
+                .username(userInfo.get(JwtTokenUtils.CLAIM_USER_NAME))
+    //                .password(userInfo.get(JwtTokenUtils.CLAIM_USER_PASSWORD))
+                .build();
+    }
 
     private String username;
     private String password;
@@ -67,10 +73,5 @@ public class UserDetailsImpl implements UserDetails {
         return null;
     }
 
-    public static UserDetailsImpl initUserDetails(HashMap<String, String> userInfo) {
-        return UserDetailsImpl.builder()
-                .username(userInfo.get(JwtTokenUtils.CLAIM_USER_NAME))
-//                .password(userInfo.get(JwtTokenUtils.CLAIM_USER_PASSWORD))
-                .build();
-    }
+
 }
